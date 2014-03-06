@@ -1,7 +1,5 @@
 package com.dan;
 
-import com.googlecode.javacpp.CharPointer;
-import com.googlecode.javacpp.Pointer;
 import junit.framework.Assert;
 import org.junit.Test;
 
@@ -38,5 +36,10 @@ public class CubeTest {
                         System.out.println("H- simplest callback---------------");
                     }
                 });
+    }
+
+    @Test
+    public void func() {
+        Assert.assertEquals(3, Dog.call_function(new Dog.Func1()));
     }
 }

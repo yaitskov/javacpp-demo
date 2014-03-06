@@ -25,6 +25,11 @@ void call_callback(void (*print) ()) {
     cout << "after call of " << endl;
 }
 
+int call_function(int (*f) (int)) {
+    cout << "before call f with" <<  endl;
+    return f(3);
+}
+
 void print_string(const char * p) {
     cout << "before print string " << endl;
     cout << p << endl;

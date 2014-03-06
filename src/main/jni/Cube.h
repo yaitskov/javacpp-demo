@@ -29,6 +29,7 @@ virtual void print() = 0;
 };
 
 void call_callback(void (*print) ());
+int call_function(int (*f) (int));
 void print_string(const char * p);
 
 #endif
