@@ -20,12 +20,15 @@ class Cube {
 };
 
 
+class PrintableXBase {
+};
+
 class Printable {
 public:
 virtual void print() = 0;
 };
 
-void print_printable(Printable * p);
+void call_callback(void (*print) ());
 void print_string(const char * p);
 
 #endif

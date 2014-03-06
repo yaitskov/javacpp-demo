@@ -19,10 +19,10 @@ double Cube::getVolume() {
 }
 
 
-void print_printable(Printable * p) {
-    cout << "before print of " << p << endl;
-    p->print();
-    cout << "after print of " << p << endl;
+void call_callback(void (*print) ()) {
+    cout << "before call of " <<  endl;
+    print();
+    cout << "after call of " << endl;
 }
 
 void print_string(const char * p) {

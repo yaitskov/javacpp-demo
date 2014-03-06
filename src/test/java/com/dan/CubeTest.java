@@ -1,6 +1,7 @@
 package com.dan;
 
 import com.googlecode.javacpp.CharPointer;
+import com.googlecode.javacpp.Pointer;
 import junit.framework.Assert;
 import org.junit.Test;
 
@@ -24,5 +25,18 @@ public class CubeTest {
     @Test
     public void staticFunction() {
         Dog.print_string("hello world. suckers.");
+    }
+
+    @Test
+    public void simplestCallback() {
+        Dog.call_callback(
+                new PrintableImpl() {
+                    {
+                        allocate();
+                    }
+                    public void call() {
+                        System.out.println("H- simplest callback---------------");
+                    }
+                });
     }
 }
