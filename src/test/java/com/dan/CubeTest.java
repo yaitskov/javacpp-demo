@@ -60,15 +60,14 @@ public class CubeTest {
             expected_sum += i;
         }
         final CountDownLatch latch = new CountDownLatch(max);
-        Dog.reg_handler(new Dog.PeopleHandler() {
+
+        long time = System.currentTimeMillis();
+        Dog.start_gen_thread(new Dog.PeopleHandler() {
             public void call(Dog.People p) {
                 got_sum.addAndGet(p.getMan(0).age());
                 latch.countDown();
             }
-        });
-
-        long time = System.currentTimeMillis();
-        Dog.start_gen_thread(max);
+        }, max);
 
         latch.await();
         long duration = System.currentTimeMillis() - time;

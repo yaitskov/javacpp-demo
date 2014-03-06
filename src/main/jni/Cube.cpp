@@ -59,20 +59,14 @@ void handle_people(void (*f)(People*)) {
     delete p;
 }
 
-static people_handler s_people_handler = 0;
-
-void reg_handler(people_handler p_ph) {
-     s_people_handler = p_ph;
-     cout << "people handler was set" << endl;
-}
-
 struct GenBodyData {
    thread * t;
+   people_handler ph;
    mutex * volatile m;
    volatile int number_messages;
 };
 
-static void thread_gen_body(GenBodyData * volatile data) {
+static void thread_gen_body(volatile GenBodyData * volatile data) {
      Man m;
      People p;
      p.NumberRows = 1;
@@ -86,7 +80,7 @@ static void thread_gen_body(GenBodyData * volatile data) {
      for (int i = 0; i < data->number_messages; ++i) {
          //cout << "sending message" << i << endl;
          m.age = i;
-         s_people_handler(&p);
+         data->ph(&p);
      }
      cout << "gen thread ended" << endl;
 
@@ -97,14 +91,11 @@ static void thread_gen_body(GenBodyData * volatile data) {
      delete data;
 }
 
-void start_gen_thread(int number_messages) {
-     if (!s_people_handler) {
-         cerr << "people handler is not set" << endl;
-         return;
-     }
+void start_gen_thread(people_handler p_ph, int number_messages) {
      GenBodyData  * volatile data  = new GenBodyData;
      data->m = new mutex;
      data->m->lock();
+     data->ph = p_ph;
      data->number_messages = number_messages;
      data->t = new thread(thread_gen_body, data);
      data->m->unlock();

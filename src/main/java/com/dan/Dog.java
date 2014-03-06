@@ -23,8 +23,7 @@ public class Dog {
 
     public static native void handle_people(PeopleHandler h);
 
-    public static native void reg_handler(PeopleHandler h);
-    public static native void start_gen_thread(int number_messages);
+    public static native void start_gen_thread(PeopleHandler h, int number_messages);
     public static native void stop_gen_thread();
 
     public static class Func1 extends FunctionPointer {

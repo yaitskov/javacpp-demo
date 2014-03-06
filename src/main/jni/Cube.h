@@ -49,8 +49,7 @@ void handle_people(void (*f)(People*));
 
 typedef void (*people_handler)(People*);
 
-void reg_handler(people_handler);
-void start_gen_thread(int);
+void start_gen_thread(people_handler, int);
 void stop_gen_thread();
 
 #endif
