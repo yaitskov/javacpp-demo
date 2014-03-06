@@ -1,5 +1,6 @@
 #include "Cube.h"
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 void Cube::setSide(double s) {
@@ -34,4 +35,21 @@ void print_string(const char * p) {
     cout << "before print string " << endl;
     cout << p << endl;
     cout << "after print string " << endl;
+}
+
+
+void handle_people(void (*f)(People*)) {
+    People * p = new People();
+    p->NumberRows = 2;
+    p->rows = new Man[2];
+    strcpy(p->rows[0].name, "Brad Cox");
+    p->rows[0].age = 66;
+
+    strcpy(p->rows[1].name, "Jeff Hawkins");
+    p->rows[1].age = 82;
+
+    f(p);
+
+    delete[] p->rows;
+    delete p;
 }

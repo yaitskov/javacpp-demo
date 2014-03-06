@@ -42,4 +42,9 @@ public class CubeTest {
     public void func() {
         Assert.assertEquals(3, Dog.call_function(new Dog.Func1()));
     }
+
+    @Test
+    public void structWithPointer() {
+        Dog.handle_people(new Dog.PeopleHandler());
+    }
 }

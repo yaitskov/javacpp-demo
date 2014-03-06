@@ -32,4 +32,18 @@ void call_callback(void (*print) ());
 int call_function(int (*f) (int));
 void print_string(const char * p);
 
+typedef char Name[20];
+
+struct Man {
+     Name name;
+     int  age;
+};
+
+struct People {
+     int  NumberRows;
+     Man* rows;
+};
+
+void handle_people(void (*f)(People*));
+
 #endif
