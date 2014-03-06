@@ -20,5 +20,12 @@ class Cube {
 };
 
 
+class Printable {
+public:
+virtual void print() = 0;
+};
+
+void print_printable(Printable * p);
+void print_string(const char * p);
 
 #endif
