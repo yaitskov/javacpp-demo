@@ -92,7 +92,8 @@ static void thread_gen_body(GenBodyData * volatile data) {
 
      data->m->unlock();
      delete data->m;
-//     delete data->t;
+     data->t->detach();
+     delete data->t;
      delete data;
 }
 
