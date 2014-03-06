@@ -37,6 +37,7 @@ typedef char Name[20];
 struct Man {
      Name name;
      int  age;
+     double weight;
 };
 
 struct People {

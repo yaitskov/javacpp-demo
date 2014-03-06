@@ -44,6 +44,10 @@ public class Dog {
 
         public native String name();
         public native void name(String n);
+        public native double weight();
+        public native void weight(double d);
+        public native int age();
+        public native void age(int n);
     }
 
     public static class People extends Pointer {
@@ -75,9 +79,14 @@ public class Dog {
             System.out.println("number rows " + p.NumberRows());
             Man m1 = p.getMan(0);
             System.out.println("first name: " + m1.name());
+            System.out.println("first weight: " + m1.weight());
+            System.out.println("first age: " + m1.age());
 
             Man m2 = p.getMan(1);
             System.out.println("second name: " + m2.name());
+            System.out.println("second weight: " + m2.weight());
+            System.out.println("second age: " + m2.age());
+
         }
     }
 }

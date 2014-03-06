@@ -44,9 +44,11 @@ void handle_people(void (*f)(People*)) {
     p->rows = new Man[2];
     strcpy(p->rows[0].name, "Brad Cox");
     p->rows[0].age = 66;
+    p->rows[0].weight = 3.33;
 
     strcpy(p->rows[1].name, "Jeff Hawkins");
     p->rows[1].age = 82;
+    p->rows[1].weight = 0.09;
 
     f(p);
 
