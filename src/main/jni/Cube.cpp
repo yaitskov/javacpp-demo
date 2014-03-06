@@ -84,7 +84,7 @@ static void thread_gen_body(GenBodyData * volatile data) {
      data->m->lock();
      cout << "lock acquired; generate " << data->number_messages << " messages" << endl;
      for (int i = 0; i < data->number_messages; ++i) {
-         cout << "sending message" << i << endl;
+         //cout << "sending message" << i << endl;
          m.age = i;
          s_people_handler(&p);
      }

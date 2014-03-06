@@ -55,7 +55,7 @@ public class CubeTest {
     public void thread() throws InterruptedException {
         long expected_sum = 0;
         final AtomicLong got_sum = new AtomicLong();
-        int max = 3;
+        int max = 30000;
         for (int i = 0; i < max; ++i) {
             expected_sum += i;
         }
@@ -67,9 +67,12 @@ public class CubeTest {
             }
         });
 
+        long time = System.currentTimeMillis();
         Dog.start_gen_thread(max);
 
         latch.await();
+        long duration = System.currentTimeMillis() - time;
+        System.out.println("duration: " + duration + " ms");
 
         Assert.assertEquals(expected_sum, got_sum.get());
     }
