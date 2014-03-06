@@ -3,6 +3,9 @@ package com.dan;
 import com.googlecode.javacpp.FunctionPointer;
 import com.googlecode.javacpp.Pointer;
 import com.googlecode.javacpp.annotation.Platform;
+
+import java.util.concurrent.CountDownLatch;
+
 import static com.googlecode.javacpp.Loader.load;
 
 /**

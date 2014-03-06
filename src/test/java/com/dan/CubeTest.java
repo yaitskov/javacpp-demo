@@ -3,6 +3,8 @@ package com.dan;
 import junit.framework.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -56,23 +58,35 @@ public class CubeTest {
         long expected_sum = 0;
         final AtomicLong got_sum = new AtomicLong();
         int max = 30000;
-        for (int i = 0; i < max; ++i) {
-            expected_sum += i;
-        }
-        final CountDownLatch latch = new CountDownLatch(max);
-
-        long time = System.currentTimeMillis();
-        Dog.start_gen_thread(new Dog.PeopleHandler() {
-            public void call(Dog.People p) {
-                got_sum.addAndGet(p.getMan(0).age());
-                latch.countDown();
+        int nThreads = 4;
+        for (int j = 0; j < nThreads; ++j) {
+            for (int i = 0; i < max; ++i) {
+                expected_sum += i;
             }
-        }, max);
+        }
+
+        CountDownLatch latch = new CountDownLatch(max * nThreads);
+        long time = System.currentTimeMillis();
+        for (int i = 0; i < nThreads; ++i) {
+            runThread(latch, max, got_sum);
+        }
 
         latch.await();
+
         long duration = System.currentTimeMillis() - time;
         System.out.println("duration: " + duration + " ms");
 
         Assert.assertEquals(expected_sum, got_sum.get());
+    }
+
+    public void runThread(final CountDownLatch latch, int max, final AtomicLong got_sum) {
+        Dog.start_gen_thread(new Dog.PeopleHandler() {
+            public void call(Dog.People p) {
+                Dog.Man m = p.getMan(0);
+                got_sum.addAndGet(m.age());
+                latch.countDown();
+                //System.out.println(" age " + m.age() + " latch " + latch);
+            }
+        }, max);
     }
 }
