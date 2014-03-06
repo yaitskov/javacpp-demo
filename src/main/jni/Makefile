@@ -9,7 +9,7 @@ clean:
  
 main:
 	echo "Creating shared lib"
-	$(CC) -Wall -fPIC -o $(BASEDIR)/target/cube.o -c Cube.cpp 
+	$(CC) -std=c++0x -pthread -Wall -fPIC -o $(BASEDIR)/target/cube.o -c Cube.cpp
 	mkdir -p $(BASEDIR)/target/classes/linux-x86
 	$(CC) -Wall -shared -o $(BASEDIR)/target/classes/linux-x86/libCube.so $(BASEDIR)/target/cube.o
 

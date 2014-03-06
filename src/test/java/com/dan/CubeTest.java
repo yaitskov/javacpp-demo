@@ -3,6 +3,9 @@ package com.dan;
 import junit.framework.Assert;
 import org.junit.Test;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicLong;
+
 /**
  * Daneel Yaitskov
  */
@@ -46,5 +49,28 @@ public class CubeTest {
     @Test
     public void structWithPointer() {
         Dog.handle_people(new Dog.PeopleHandler());
+    }
+
+    @Test
+    public void thread() throws InterruptedException {
+        long expected_sum = 0;
+        final AtomicLong got_sum = new AtomicLong();
+        int max = 3;
+        for (int i = 0; i < max; ++i) {
+            expected_sum += i;
+        }
+        final CountDownLatch latch = new CountDownLatch(max);
+        Dog.reg_handler(new Dog.PeopleHandler() {
+            public void call(Dog.People p) {
+                got_sum.addAndGet(p.getMan(0).age());
+                latch.countDown();
+            }
+        });
+
+        Dog.start_gen_thread(max);
+
+        latch.await();
+
+        Assert.assertEquals(expected_sum, got_sum.get());
     }
 }
